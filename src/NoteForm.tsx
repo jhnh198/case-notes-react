@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import CreatableReactSelect from "react-select/creatable"
 import { NoteData, Tag } from "./App"
 import { v4 as uuidV4 } from "uuid"
+import { CheckboxOptions } from "./components/CheckboxOptions"
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void
@@ -73,6 +74,7 @@ export function NoteForm({
             </Form.Group>
           </Col>
         </Row>
+        {/* add rich text to this */}
         <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
           <Form.Control
@@ -92,7 +94,10 @@ export function NoteForm({
               Cancel
             </Button>
           </Link>
+          
         </Stack>
+        {/*add checkbox options here */}
+        <CheckboxOptions />
       </Stack>
     </Form>
   )
