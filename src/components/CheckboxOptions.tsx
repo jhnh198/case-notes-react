@@ -1,5 +1,5 @@
 import { Accordion, Form } from "react-bootstrap";
-import InitialCheckboxData from "../data/InitialCheckboxData"
+import {InitialCheckboxData} from "../data/InitialCheckboxData"
 
 type CheckBoxOptionProps = {
   onClick: () => void
@@ -18,16 +18,10 @@ export function CheckboxOptions({onClick} : CheckBoxOptionProps){
   return (
     <Accordion>
       <Accordion.Header> Issues </Accordion.Header>
-      <Accordion.Body>
-        {
-          InitialCheckboxData.map(cb_data => (
-            return (
-              <Form.Check 
-              label={cb_data.label}
-            />
-            ) 
-          ))
-        }
+      <Accordion.Body> 
+          {InitialCheckboxData.map((cb_data, index) => (
+              <Form.Check key={cb_data.id} label={cb_data.label} />
+          ))}
       </Accordion.Body>
     </Accordion>
   )
