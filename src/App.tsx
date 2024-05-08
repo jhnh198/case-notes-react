@@ -9,7 +9,6 @@ import { Navbar } from './components/Navbar';
 
 function App() {
   return (
-
     <Container className='my-4'>
       <Navbar />
       <Routes>
