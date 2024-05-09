@@ -21,7 +21,8 @@ export default function ToolsLayout() {
         <label 
           for="comma-insertion-input-text">
           Enter DSN's
-         </label>
+        </label>
+
         <textarea
           ref={commaInsertionInputTextRef}
           id="comma-insertion-input-text"
@@ -31,7 +32,11 @@ export default function ToolsLayout() {
           className="comma-insertion-input-text">
         </textarea>
         
-        <button id="comma-insertion-button"> Insert Commas and Filter DSN </button>
+        <button 
+          id="comma-insertion-button"
+          onClick={convertText}>
+          Insert Commas and Filter DSN 
+        </button>
 
         <textarea 
           ref={commaInsertionOutputTextRef}
