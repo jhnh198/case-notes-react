@@ -16,26 +16,30 @@ type CheckboxOptionsType = {
 
 //include options to map
 export function CheckboxOptions({onClick} : CheckBoxOptionProps){
-  const [notes, setNotes] = useState([
+  const [notes, setNotes] = useState<String[]>([
     
   ]);
 
 
-  function updateNotes((isChecked) => {
-    if(isChecked) {
-      const updatedNotes = [...notes];
+  function updateNotes((e: Event) => {
+    const target = e.target as HTMLInputElement;
+    if(target.checked) {
+      notes.push(target.value)
     } else {
-
+      const updatedNotes = notes.filter((noteText) => {
+        return noteText != target.value
+      })
+      setNotes(updatedNotes)
     }
 
-  })
+  });
 
   return (
     <Accordion>
       <Accordion.Header> Issues </Accordion.Header>
       <Accordion.Body> 
           {InitialCheckboxData.map((cb_data, index) => (
-              <Form.Check key={cb_data.id} label={cb_data.label} onChange={(e) => updateNotes(e.target.checked)}/>
+              <Form.Check key={cb_data.id} label={cb_data.label} onChange={(e) => updateNotes()}/>
           ))}
       </Accordion.Body>
     </Accordion>
