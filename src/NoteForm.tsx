@@ -23,7 +23,8 @@ export function NoteForm({
   const titleRef = useRef<HTMLInputElement>(null)
   const markdownRef = useRef<HTMLTextAreaElement>(null)
   const [selectedTags, setSelectedTags] = useState<Tag[]>(tags)
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [notes, setNotes] = useState<string[]>([]);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -37,7 +38,7 @@ export function NoteForm({
     navigate("..")
   }
 
-  return (
+  return (    
     <Form onSubmit={handleSubmit}>
       <Stack gap={4}>
         <Row>
@@ -78,7 +79,7 @@ export function NoteForm({
         <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
           <Form.Control
-            defaultValue={markdown}
+            defaultValue={notes.join("\n")}
             required
             as="textarea"
             ref={markdownRef}
