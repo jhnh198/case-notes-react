@@ -26,11 +26,10 @@ export function CheckboxOptions({notes, updateNotes} : CheckBoxOptionProps){
               <Form.Check 
                 key={cb_data.id}
                 label={cb_data.label}
-                onChange={(e) => updateNotes(e)}
+                onChange={updateNotes}
               />
           ))}
       </Accordion.Body>
     </Accordion>
   )
 }
-  

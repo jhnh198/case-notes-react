@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react"
+import { ChangeEvent, FormEvent, useRef, useState } from "react"
 import { Button, Col, Form, Row, Stack } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import CreatableReactSelect from "react-select/creatable"
@@ -36,6 +36,18 @@ export function NoteForm({
     })
 
     navigate("..")
+  }
+
+  function updateNotes(e: ChangeEvent<HTMLInputElement>): void {
+    const target = e.target
+    if (target.checked) {
+      notes.push(target.value)
+    } else {
+      const updatedNotes = notes.filter((noteText) => {
+        return noteText != target.value
+      })
+      setNotes(updatedNotes)
+    }
   }
 
   return (    
@@ -79,7 +91,7 @@ export function NoteForm({
         <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
           <Form.Control
-            defaultValue={notes.join("\n")}
+            value={notes.join("\n")}
             required
             as="textarea"
             ref={markdownRef}
@@ -98,7 +110,7 @@ export function NoteForm({
           
         </Stack>
         {/*add checkbox options here */}
-        <CheckboxOptions />
+        <CheckboxOptions updateNotes={updateNotes} notes={notes}/>
       </Stack>
     </Form>
   )
