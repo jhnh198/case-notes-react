@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 export default function ToolsLayout() {
-  let [conversionText, setConversionText] = useState<String>("");
+  let [conversionText, setConversionText] = useState<string[]>([]);
 
-  let commaInsertionInputTextRef = useRef<HTMLInputElement>();
+  let commaInsertionInputTextRef = useRef<HTMLTextAreaElement>();
   
   function convertText(){
     let commaFilter: string = commaInsertionInputTextRef.current!.value.replace(',', ' ');
