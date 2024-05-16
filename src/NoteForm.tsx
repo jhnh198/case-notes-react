@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import CreatableReactSelect from "react-select/creatable"
 import { NoteData, Tag } from "./App"
 import { v4 as uuidV4 } from "uuid"
-import { CheckboxOptions } from "./components/CheckboxOptions"
+import {InitialCheckboxData} from "./data/InitialCheckboxData"
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void
@@ -38,17 +38,15 @@ export function NoteForm({
     navigate("..")
   }
 
-  function updateNotes(e: ChangeEvent<HTMLInputElement>): void {
-    const target = e.target
-    if (target.checked) {
-      notes.push(target.value)
+  const handleCheckboxChange = (e: any, value: any) => {
+    if (e.target.checked) {
+      console.log(value)
+      setNotes(prevNotes => [...prevNotes, value]);
     } else {
-      const updatedNotes = notes.filter((noteText) => {
-        return noteText != target.value
-      })
-      setNotes(updatedNotes)
+      console.log(value)
+      setNotes(prevNotes => prevNotes.filter(note => note !== value));
     }
-  }
+  };
 
   return (    
     <Form onSubmit={handleSubmit}>
@@ -72,7 +70,7 @@ export function NoteForm({
                 value={selectedTags.map(tag => {
                   return { label: tag.label, value: tag.id }
                 })}
-                options={availableTags.map(tag => {
+                options={availableTags.map((tag: Tag) => {
                   return { label: tag.label, value: tag.id }
                 })}
                 onChange={tags => {
@@ -88,7 +86,7 @@ export function NoteForm({
           </Col>
         </Row>
         {/* add rich text to this */}
-        <Form.Group controlId="markdown">
+        <Form.Group controlId="notes">
           <Form.Label>Body</Form.Label>
           <Form.Control
             value={notes.join("\n")}
@@ -109,8 +107,14 @@ export function NoteForm({
           </Link>
           
         </Stack>
-        {/*add checkbox options here */}
-        <CheckboxOptions updateNotes={updateNotes} notes={notes}/>
+        {InitialCheckboxData.map((note: any) => (
+        <Form.Check 
+          type="checkbox"
+          id={`-${note.id}`}
+          label={note.label}
+          onChange={(e) => handleCheckboxChange(e, note.value)}
+          />
+        ))}
       </Stack>
     </Form>
   )

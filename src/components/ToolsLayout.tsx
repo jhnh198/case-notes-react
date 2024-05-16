@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 export default function ToolsLayout() {
-  let [conversionText, setConversionText] = useState<string[]>([]);
+  let [conversionText, setConversionText] = useState<string>('');
 
   let commaInsertionInputTextRef = useRef<HTMLTextAreaElement>();
   
