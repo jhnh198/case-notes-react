@@ -107,6 +107,21 @@ export function NoteForm({
           </Link>
           
         </Stack>
+        {// todo: e-mail checkbox option
+        }
+        <Form.Check 
+          type="checkbox"
+          id={`email-checkbox`}
+          label="Email"
+          onChange={(e) => handleCheckboxChange(e, "email")}
+        ></Form.Check>
+
+        {// todo: pre-made templates
+        }
+
+        {
+          //todo: additional notes checkbox options
+        }
         {InitialCheckboxData.map((note: any) => (
         <Form.Check 
           type="checkbox"
