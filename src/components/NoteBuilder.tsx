@@ -3,17 +3,36 @@ import { InitialCheckboxData } from '../data/InitialCheckboxData'
 import { useState } from 'react'
 
 export default function NoteBuilder() {
-  const [notes, setNotes] = useState<string[]>([]);
+    //todo: create an object that contains a header, notes, and a footer
+  const [notes, setNotes] = useState({
+    body: [],
+    head: "Header",
+    foot: "Footer",
+    additionalNotes: "Additional Notes:",
+    additionalNotesBody: [],
+  } as any);
+
+  const emailTemplateHeader = "Thank you for contacting Trimble Transportation. Please see below for case notes on your issue \n\n";
+  const emailTemplateFooter = "Please reply to this email if you have any further questions or concerns. \n\n" + "Trimble Transportation";
 
   const handleCheckboxChange = (e: any, value: any) => {
     if (e.target.checked) {
       console.log(value)
-      setNotes((prevNotes: string[]) => [...prevNotes, value]);
+      setNotes({ ...notes, body: [...notes.body, value] });
     } else {
       console.log(value)
-      setNotes((prevNotes: string[]) => prevNotes.filter(note => note !== value));
+      setNotes({ ...notes, body: notes.body.filter((note: any) => note !== value)});
     }
   };
+
+  const handleEmailChange = (e: any) => {
+    if (e.target.checked) {
+      setNotes({ ...notes, head: emailTemplateHeader, foot: emailTemplateFooter});
+    } else {
+      setNotes({ ...notes, head: "", foot: ""});
+    }
+  }
+
   return (
     <>
       <Form>
@@ -22,8 +41,12 @@ export default function NoteBuilder() {
           <Form.Control
             as="textarea"
             rows={15}
-            value={notes.join("\n")}
+            value={notes.body.join("\n")}
           />
+          <Form.Check >
+            <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
+            <Form.Check.Label>Email Template</Form.Check.Label>
+          </Form.Check>
       </Form.Group>
       {InitialCheckboxData.map((note: any) => (
         <Form.Check 
