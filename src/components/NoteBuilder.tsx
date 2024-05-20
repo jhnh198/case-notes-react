@@ -33,6 +33,11 @@ export default function NoteBuilder() {
     }
   }
 
+  //todo: set an onchange event for the textarea to update the state of the additional notes body every few seconds
+  function handleChange(e: any) {
+    setNotes({ ...notes, additionalNotesBody: e.target.value.split("\n") });
+  }
+
   return (
     <>
       <Form>
@@ -41,7 +46,13 @@ export default function NoteBuilder() {
           <Form.Control
             as="textarea"
             rows={15}
-            value={notes.body.join("\n")}
+            value={`${notes.body.join("\n")}
+            ${notes.head}
+            ${notes.foot}
+            ${notes.additionalNotes}
+            ${notes.additionalNotesBody.join("\n")}
+            `}
+            onChange={handleChange}
           />
           <Form.Check >
             <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
@@ -58,7 +69,5 @@ export default function NoteBuilder() {
         ))}
       </Form>
     </>
-
   )
 }
-
