@@ -46,12 +46,19 @@ export default function NoteBuilder() {
           <Form.Control
             as="textarea"
             rows={15}
-            value={`${notes.body.join("\n")}
+            value={`
             ${notes.head}
-            ${notes.foot}
+            ${notes.body.join("\n")}
             ${notes.additionalNotes}
             ${notes.additionalNotesBody.join("\n")}
+            ${notes.foot}
             `}
+          />
+          <Form.Label className="mt-3">Additional Notes</Form.Label>
+          <Form.Control
+            value={notes.additionalNotesBody.join("\n")}
+            as="textarea"
+            rows={5}
             onChange={handleChange}
           />
           <Form.Check >
