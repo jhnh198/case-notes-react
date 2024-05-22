@@ -1,6 +1,7 @@
 import { Form } from 'react-bootstrap'
 import { InitialCheckboxData } from '../data/InitialCheckboxData'
 import { useState } from 'react'
+import { Button } from 'react-bootstrap';
 
 export default function NoteBuilder() {
     //todo: create an object that contains a header, notes, and a footer
@@ -38,11 +39,24 @@ export default function NoteBuilder() {
     setNotes({ ...notes, additionalNotesBody: e.target.value.split("\n") });
   }
 
+
+  // Function to copy text to clipboard
+  const copyToClipboard = () => {
+    const textarea = document.createElement('textarea');
+    textarea.value = `${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  };
+
   return (
     <>
       <Form>
       <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
+          <Button variant="primary" onClick={copyToClipboard}>Copy</Button>
+
           <Form.Control
             as="textarea"
             rows={15}
