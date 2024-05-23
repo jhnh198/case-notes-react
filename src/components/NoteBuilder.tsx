@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from 'react-bootstrap';
 
 export default function NoteBuilder() {
-    //todo: create an object that contains a header, notes, and a footer
+  //todo: create an object that contains a header, notes, and a footer
   const [notes, setNotes] = useState({
     body: [],
     head: "Header",
@@ -18,10 +18,8 @@ export default function NoteBuilder() {
 
   const handleCheckboxChange = (e: any, value: any) => {
     if (e.target.checked) {
-      console.log(value)
       setNotes({ ...notes, body: [...notes.body, value] });
     } else {
-      console.log(value)
       setNotes({ ...notes, body: notes.body.filter((note: any) => note !== value)});
     }
   };
@@ -39,7 +37,6 @@ export default function NoteBuilder() {
     setNotes({ ...notes, additionalNotesBody: e.target.value.split("\n") });
   }
 
-
   // Function to copy text to clipboard
   const copyToClipboard = () => {
     const textarea = document.createElement('textarea');
@@ -55,7 +52,7 @@ export default function NoteBuilder() {
       <Form>
       <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
-          <Button variant="primary" onClick={copyToClipboard}>Copy</Button>
+          <Button variant="primary m-4" onClick={copyToClipboard}>Copy</Button>
 
           <Form.Control
             as="textarea"
