@@ -2,6 +2,7 @@ import { Form } from 'react-bootstrap'
 import { InitialCheckboxData } from '../data/InitialCheckboxData'
 import { useState } from 'react'
 import { Button } from 'react-bootstrap';
+import { StandardTemplates } from '../data/standard-templates';
 
 export default function NoteBuilder() {
   //todo: create an object that contains a header, notes, and a footer
@@ -53,6 +54,10 @@ export default function NoteBuilder() {
       <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
           <Button variant="primary m-4" onClick={copyToClipboard}>Copy</Button>
+          //todo: dropdown that allows you to select a template
+          {StandardTemplates.map((template: any) => {
+              return <option key={template.id} value={template.templateText} selected>{template.templateName}</option>
+          })}
 
           <Form.Control
             as="textarea"
