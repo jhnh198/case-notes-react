@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap'
+import { Dropdown, Form } from 'react-bootstrap'
 import { InitialCheckboxData } from '../data/InitialCheckboxData'
 import { useState } from 'react'
 import { Button } from 'react-bootstrap';
@@ -54,10 +54,6 @@ export default function NoteBuilder() {
       <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
           <Button variant="primary m-4" onClick={copyToClipboard}>Copy</Button>
-          //todo: dropdown that allows you to select a template
-          {StandardTemplates.map((template: any) => {
-              return <option key={template.id} value={template.templateText} selected>{template.templateName}</option>
-          })}
 
           <Form.Control
             as="textarea"
@@ -77,6 +73,17 @@ export default function NoteBuilder() {
             rows={5}
             onChange={handleChange}
           />
+
+          <Dropdown className="mt-3">
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Select a Template
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {StandardTemplates.map((template: any) => {
+                return <Dropdown.Item key={template.id}>{template.id}</Dropdown.Item>
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
           <Form.Check >
             <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
             <Form.Check.Label>Email Template</Form.Check.Label>
