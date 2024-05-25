@@ -48,6 +48,13 @@ export default function NoteBuilder() {
     document.body.removeChild(textarea);
   };
 
+  const handleTemplateNotes = (e: any) => {
+    const template = StandardTemplates.find((template: any) => template.id === e);
+    if (template) {
+      setNotes({ ...notes, body: template.templateText });
+    }
+  }
+
   return (
     <>
       <Form>
@@ -58,13 +65,14 @@ export default function NoteBuilder() {
           <Form.Control
             as="textarea"
             rows={15}
-            value={`
+            defaultValue={`
             ${notes.head}
             ${notes.body.join("\n")}
             ${notes.additionalNotes}
             ${notes.additionalNotesBody.join("\n")}
             ${notes.foot}
             `}
+            onChange={(e) => setNotes({ ...notes, body: e.target.value.split("\n") })}
           />
           <Form.Label className="mt-3">Additional Notes</Form.Label>
           <Form.Control
@@ -80,7 +88,7 @@ export default function NoteBuilder() {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {StandardTemplates.map((template: any) => {
-                return <Dropdown.Item key={template.id}>{template.id}</Dropdown.Item>
+                return <Dropdown.Item key={template.id} onSelect={handleTemplateNotes}>{template.id}</Dropdown.Item>
               })}
             </Dropdown.Menu>
           </Dropdown>
