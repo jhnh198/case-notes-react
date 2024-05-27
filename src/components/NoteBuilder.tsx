@@ -7,6 +7,7 @@ import { StandardTemplates } from '../data/standard-templates';
 export default function NoteBuilder() {
   const [notes, setNotes] = useState({
     body: [],
+    bodyTitle: "Case Notes:",
     head: "Header",
     foot: "Footer",
     additionalNotes: "Additional Notes:",
@@ -73,18 +74,14 @@ export default function NoteBuilder() {
             as="textarea"
             rows={5}
             onChange={handleChange}
-          />
+          />  
 
-          <Dropdown className="mt-3">
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Select a Template
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {StandardTemplates.map((template: any) => {
-                return <Dropdown.Item key={template.id} onSelect={handleTemplateNotes}>{template.id}</Dropdown.Item>
-              })}
-            </Dropdown.Menu>
-          </Dropdown>
+
+          <Dropdown.Menu>
+            {StandardTemplates.map((template: any) => {
+              return <Dropdown.Item key={template.id} onClick={() => handleTemplateNotes(template.id)}>{template.id}</Dropdown.Item> // Modify the onChange event handler to pass the selected template value
+            })}
+          </Dropdown.Menu>
           <Form.Check >
             <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
             <Form.Check.Label>Email Template</Form.Check.Label>
