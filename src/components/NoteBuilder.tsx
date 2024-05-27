@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 import { StandardTemplates } from '../data/standard-templates';
 
 export default function NoteBuilder() {
-  //todo: create an object that contains a header, notes, and a footer
   const [notes, setNotes] = useState({
     body: [],
     head: "Header",
@@ -49,7 +48,7 @@ export default function NoteBuilder() {
   };
 
   const handleTemplateNotes = (e: any) => {
-    const template = StandardTemplates.find((template: any) => template.id === e);
+    const template = StandardTemplates.find((template: any) => template.id === e.value);
     if (template) {
       setNotes({ ...notes, body: template.templateText });
     }
@@ -65,14 +64,8 @@ export default function NoteBuilder() {
           <Form.Control
             as="textarea"
             rows={15}
-            defaultValue={`
-            ${notes.head}
-            ${notes.body.join("\n")}
-            ${notes.additionalNotes}
-            ${notes.additionalNotesBody.join("\n")}
-            ${notes.foot}
-            `}
-            onChange={(e) => setNotes({ ...notes, body: e.target.value.split("\n") })}
+            onChange={handleChange}
+            value={`${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`}
           />
           <Form.Label className="mt-3">Additional Notes</Form.Label>
           <Form.Control
@@ -100,6 +93,7 @@ export default function NoteBuilder() {
       {InitialCheckboxData.map((note: any) => (
         <Form.Check 
           type="checkbox"
+          key={note.id}
           id={`${note.id}`}
           label={note.label}
           onChange={(e) => handleCheckboxChange(e, note.value)}
