@@ -50,6 +50,7 @@ export default function NoteBuilder() {
 
   const handleTemplateNotes = (e: any) => {
     const template = StandardTemplates.find((template: any) => template.id === e.value);
+    console.log(template);
     if (template) {
       setNotes({ ...notes, body: template.templateText });
     }
@@ -77,11 +78,20 @@ export default function NoteBuilder() {
           />  
 
 
+          <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Standard Templates
+          </Dropdown.Toggle>
           <Dropdown.Menu>
             {StandardTemplates.map((template: any) => {
-              return <Dropdown.Item key={template.id} onClick={() => handleTemplateNotes(template.id)}>{template.id}</Dropdown.Item> // Modify the onChange event handler to pass the selected template value
+              return (
+                <Dropdown.Item key={template.id} onClick={() => handleTemplateNotes(template.id)}>
+                  {template.id}
+                </Dropdown.Item>
+              ); // Modify the onClick event handler to pass the selected template value
             })}
           </Dropdown.Menu>
+        </Dropdown>
           <Form.Check >
             <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
             <Form.Check.Label>Email Template</Form.Check.Label>
