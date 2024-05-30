@@ -48,11 +48,11 @@ export default function NoteBuilder() {
     document.body.removeChild(textarea);
   };
 
-  const handleTemplateNotes = (e: any) => {
-    const template = StandardTemplates.find((template: any) => template.id === e.value);
+  const handleTemplateNotes = (value: string) => {
+    const template = StandardTemplates.find((template: any) => template.id === value);
     console.log(template);
     if (template) {
-      setNotes({ ...notes, body: template.templateText });
+      setNotes({ ...notes, body: [template.templateText] });
     }
   }
 
