@@ -1,4 +1,4 @@
-import { Dropdown, Form } from 'react-bootstrap'
+import { Accordion, Dropdown, Form } from 'react-bootstrap'
 import { InitialCheckboxData } from '../data/InitialCheckboxData'
 import { useState } from 'react'
 import { Button } from 'react-bootstrap';
@@ -6,10 +6,10 @@ import { StandardTemplates } from '../data/standard-templates';
 
 export default function NoteBuilder() {
   const [notes, setNotes] = useState({
-    bodyTitle: "Solution/ Troubleshooting:",
-    body: [],
     head: "",
     foot: "",
+    bodyTitle: "Solution/ Troubleshooting:",
+    body: [],
     additionalNotes: "Additional Notes:",
     additionalNotesBody: [],
   } as any);
@@ -34,7 +34,7 @@ export default function NoteBuilder() {
   }
 
   //todo: set an onchange event for the textarea to update the state of the additional notes body every few seconds
-  function handleChange(e: any) {
+  function handleAdditionalNotesChange(e: any) {
     setNotes({ ...notes, additionalNotesBody: e.target.value.split("\n") });
   }
 
@@ -51,7 +51,7 @@ export default function NoteBuilder() {
   const handleTemplateNotes = (value: string) => {
     const template = StandardTemplates.find((template: any) => template.id === value);
     if (template) {
-      setNotes({ ...notes, body: [template.templateText] });
+      setNotes({ ...notes, body: [template.bodyTitle, template.templateText, template.escalationText] });
     }
   }
 
@@ -61,11 +61,16 @@ export default function NoteBuilder() {
       <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
           <Button variant="primary m-4" onClick={copyToClipboard}>Copy</Button>
+          <Form.Check >
+            <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
+            <Form.Check.Label>Email Template</Form.Check.Label>
+          </Form.Check>
 
+          {/*readonly for the time being. Changing the field directly does not update the */}
           <Form.Control
             as="textarea"
             rows={15}
-            onChange={handleChange}
+            readOnly
             value={`${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`}
           />
           <Form.Label className="mt-3">Additional Notes</Form.Label>
@@ -73,7 +78,7 @@ export default function NoteBuilder() {
             value={notes.additionalNotesBody.join("\n")}
             as="textarea"
             rows={5}
-            onChange={handleChange}
+            onChange={handleAdditionalNotesChange}
           />
 
           <Dropdown>
@@ -84,26 +89,30 @@ export default function NoteBuilder() {
             {StandardTemplates.map((template: any) => {
               return (
                 <Dropdown.Item key={template.id} onClick={() => handleTemplateNotes(template.id)}>
-                  {template.id}
+                  {template.label}
                 </Dropdown.Item>
-              ); // Modify the onClick event handler to pass the selected template value
+              );
             })}
           </Dropdown.Menu>
         </Dropdown>
-          <Form.Check >
-            <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
-            <Form.Check.Label>Email Template</Form.Check.Label>
-          </Form.Check>
+
       </Form.Group>
-      {InitialCheckboxData.map((note: any) => (
-        <Form.Check 
-          type="checkbox"
-          key={note.id}
-          id={`${note.id}`}
-          label={note.label}
-          onChange={(e) => handleCheckboxChange(e, note.value)}
-          />
-        ))}
+        <Accordion defaultActiveKey="0">
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Troubleshooting Options</Accordion.Header>
+            <Accordion.Body>
+              {InitialCheckboxData.map((note: any) => (
+                <Form.Check 
+                  type="checkbox"
+                  key={note.id}
+                  id={`${note.id}`}
+                  label={note.label}
+                  onChange={(e) => handleCheckboxChange(e, note.value)}
+                  />
+              ))}
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </Form>
     </>
   )
