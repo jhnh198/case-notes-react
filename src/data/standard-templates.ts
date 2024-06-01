@@ -1,151 +1,182 @@
+/* 
+Sturcture of a template:
+
+id: "",
+label: "",
+bodyTitle: "Solution/ Troubleshooting:",
+templateText: "",
+escalationText: "",
+
+todo: set up an array that can call different functions to set the state of the notes object
+ */
+
 export const StandardTemplates = [
   {
     id: "dsn-pending-new-template",
-    templateText: 
-      `Symptom/Issue: AddNew DSN To Pending / OTAP OBC to Current
-      
-      Troubleshooting:
-      • DSN has not been in this account prior / in the past two months
-      • Added unit to pending
-      • Cell active on unit
-      • Sent OTAP to current version 
-      • Escalating to CSM for new unit add
-      
-      ESCALATION INFORMATION
-      CID:
-      Company Name:
-      Contact Name:
-      Contact phone and email:
-      What is the problem or the issue?
-      • New DSN add to pending in account
-      What would the customer like the CM to accomplish? 
-      • New DSN contract process
-      `,
+    label: "DSN: to Pending and OTAP OBC to Current",
+    bodyTitle: `Symptom/Issue: Add New DSN To Pending / OTAP OBC to Current`,
+    templateText: `      
+    
+    Solution/Troubleshooting:
+    • DSN has not been in this account prior / in the past two months
+    • Added unit to pending
+    • Cell active on unit
+    • Sent OTAP to current version 
+    • Escalating to CSM for new unit add`,
+    escalationText: `      
+    
+    ESCALATION INFORMATION
+    CID:
+    Company Name:
+    Contact Name:
+    Contact phone and email:
+    What is the problem or the issue?
+    • New DSN add to pending in account
+    What would the customer like the CM to accomplish? 
+    • New DSN contract process`,
   },
   {
     id: "dsn-pending-active-template",
-    templateText: 
-      `Symptom/Issue: DSN: to Pending
-      
-      Troubleshooting:
-      • Removed DSN from truck: 
-      • Put DSN into pending. Issue resolved
-      `,
+    label: "DSN to Pending",
+    bodyTitle: `Symptom/Issue: DSN: to Pending `,
+    templateText: `
+    Solution/Troubleshooting:
+
+    • Removed DSN from truck: 
+    • Put DSN into pending. Issue resolved
+    `,
+    escalationText: ``,
   },
   {
     id: "dsn-sister-cid-transfer-template",
-    templateText: 
-      `Symptom/Issue: DSN Transfer from CID: to Sister CID:
-      
-      Troubleshooting Completed/Solution:
-      • Removed device from original CID
-      • Placed unit in new CID
-      • Cell active
-      • OBC on current version / OTAP to current version
-      • Escalated to FM Asset Management for sister CID move
+    label: "DSN Transfer from CID: to Sister CID:",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
 
-      Escalation to FM Asset Management:
-      CID: 
-      Company Name:
-      Contact Name:
-      Contact phone and email: 
-      Request Description: {{{Recipient.FirstName}}} {{{Recipient.LastName}}} has
-      requested that we move the following vehicle gateways into Pending
-      on the PFM. They would like this completed for ENTER REASON HERE.
-      Requested gateways to Move to Pending: DSN(s) LISTED HERE.
-      `,
+    • Removed device from original CID
+    • Placed unit in new CID
+    • Cell active
+    • OBC on current version / OTAP to current version
+    • Escalated to FM Asset Management for sister CID move
+    `,
+    escalationText: `
+    Escalation to FM Asset Management:
+    CID: 
+    Company Name:
+    Contact Name:
+    Contact phone and email: 
+    Request Description: {{{Recipient.FirstName}}} {{{Recipient.LastName}}} has
+    requested that we move the following vehicle gateways into Pending
+    on the PFM. They would like this completed for ENTER REASON HERE.
+    Requested gateways to Move to Pending: DSN(s) LISTED HERE.`,
   },
   {
     id: "display-disconnect-template",
-    templateText: 
-      `Symptom/Issue: Display Disconnect / Unable to connect to OBC wifi
-      
-      Troubleshooting:
-      • Truck is on and running and parked outside
-      • Confirmed unit broadcasting wifi
-      • Cell active in Simetric
-      • Checked OBC version and confirmed current and up to date
-      • Sent cycle power to truck
-      • Rebooted display
-      • Hit retry on C0-003 Error
-      • Display connected to unit. Issue resolved
-      `,
+    label: "Display Disconnect",
+    bodyTitle: `Symptom/Issue: Display Disconnect / Unable to connect to OBC wifi`,
+    templateText: `
+    Solution/Troubleshooting:
+    • Truck is on and running and parked outside
+    • Confirmed unit broadcasting wifi
+    • Cell active in Simetric
+    • Checked OBC version and confirmed current and up to date
+    • Sent cycle power to truck
+    • Rebooted display
+    • Hit retry on C0-003 Error
+    • Display connected to unit. Issue resolved
+    `,
+    escalationText: ``,
   },
   {
     id: "login-invalid-credentials-template",
-    templateText: 
-      `Symptom/Issue: Driver unable to log in. Invalid driver ID or password
-      
-      Troubleshooting Completed/Solution:
-      • Checked if driver ID active in PFM?
-      • Had driver attempt to log in to Driver Portal
-      • ELD License Active on vehicle
-      • AOBRD screen comes up
-      • Sent cycle power
-      • Checked permissions for EFS and force stopped PMobile and EFS
-      • Checked known issues
-      `,
+    label: "",
+    bodyTitle: `Symptom/Issue: Driver unable to log in. Invalid driver ID or password`,
+    templateText: `
+    Solution/Troubleshooting:
+    • Checked if driver ID active in PFM?
+    • Had driver attempt to log in to Driver Portal
+    • ELD License Active on vehicle
+    • AOBRD screen comes up
+    • Sent cycle power
+    • Checked permissions for EFS and force stopped PMobile and EFS
+    • Checked known issues
+    `,
+    escalationText: ``,
   },
   {
     id: "login-aobrd-template",
-    templateText: 
-      ` Symptom/Issue: Display shows AOBRD screen and driver is unable to log
-      in
-      
-      Troubleshooting Completed/Solution:
-      • Checked ELD license. ELD license active. 
-      • Truck is on and running
-      • Sent cycle power. Display shows ELD screen
-      • Checked if ELD Enabled False
-      • Checked Pmobile apps in display settings to make sure permissions
-      were allowed
-      • Performed reinstall
-      `,
+    label: "AOBRD Screen",
+    bodyTitle: `Symptom/Issue: Display shows AOBRD screen and driver is unable to log
+    in`,
+    templateText: `
+    Solution/Troubleshooting:
+    • Checked ELD license. ELD license active. 
+    • Truck is on and running
+    • Sent cycle power. Display shows ELD screen
+    • Checked if ELD Enabled False
+    • Checked Pmobile apps in display settings to make sure permissions
+    were allowed
+    • Performed reinstall
+    `,
+    escalationText: ``,
   },
   {
     id: "login-old-version-template",
-    templateText: 
-      `Symptom/Issue: Driver unable to log in. Device Version < .27xxx /
-      Seconds Precision Mismatch
-      
-      Troubleshooting Completed/Solution:
-      Display is on a version prior to 27xxx and is preventing login. 
-      Sent OTAP to current display version
-      `,
+    label: "Display Version < .27xxx / Seconds Precision Mismatch",
+    bodyTitle: `Symptom/Issue: Driver unable to log in. Device Version < .27xxx /
+    Seconds Precision Mismatch`,
+    templateText: `
+    Solution/Troubleshooting:
+    Display is on a version prior to 27xxx and is preventing login. 
+    Sent OTAP to current display version
+    `,
+    escalationText: ``,
   },
   {
     id: "login-hang-requesting-logs-template",
-    templateText: 
-      `Symptom/Issue: Device Hangs On Requesting Logs Until Device Provides
-      Option To Stop
-      
-      Troubleshooting Completed/Solution:
-      • Is device communicating? Sent test message
-      • Cell active in Simetric
-      • Truck is running and parked outside
-      • Driver excessive shipments cleared and driver has few shipments in
-      last 15 days
-      • Checked provisioned device
-      • Device shows connected recently
-      • Unprovisioned device record
-      • Troubleshooting completed and issue persists. Contacted TSA for
-      assistance
-      `,
+    label: "Login Hangs On Requesting Logs",
+    bodyTitle: `Symptom/Issue: Device Hangs On Requesting Logs Until Device Provides
+    Option To Stop`,
+    templateText: `
+    Solution/Troubleshooting:
+    • Is device communicating? Sent test message
+    • Cell active in Simetric
+    • Truck is running and parked outside
+    • Driver excessive shipments cleared and driver has few shipments in
+    last 15 days
+    • Checked provisioned device
+    • Device shows connected recently
+    • Unprovisioned device record
+    • Troubleshooting completed and issue persists. Contacted TSA for
+    assistance
+    `,
+    escalationText: ``,
   },
   {
     id: "logout-invalid-password-template",
-    templateText: 
-      `Symptom/Issue: Driver attempted to log out and is being prompted for driver password. When the driver enters the correct password, the display returns a message saying the password is incorrect and the driver is unable to continue or get past this screen.
-      
-      Troubleshooting Completed/Solution:
-      • Confirmed that the screen asking for the password has a 'select
-      driver' option
-      • Checked if there is a co-driver
-      • Deleted local DB on display
-      • If unable to access this file, perform a reprovision
-      • If unable to reprovision, uninstall and reinstall EFS
-      • Rebooted the display and the driver is able to sign out normally
-      `,
+    label: "Invalid Password",
+    bodyTitle: `Symptom/Issue: Driver attempted to log out and is being prompted for driver password. When the driver enters the correct password, the display returns a message saying the password is incorrect and the driver is unable to continue or get past this screen.`,
+    templateText: `
+    Solution/Troubleshooting:
+    • Confirmed that the screen asking for the password has a 'select
+    driver' option
+    • Checked if there is a co-driver
+    • Deleted local DB on display
+    • If unable to access this file, perform a reprovision
+    • If unable to reprovision, uninstall and reinstall EFS
+    • Rebooted the display and the driver is able to sign out normally
+    `,
+    escalationText: ``,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "no-cell-troubleshooting-template",
@@ -165,6 +196,15 @@ export const StandardTemplates = [
       • Check cabling for 12v and for damage/disconnection
       • Swap if the above is correct and does not resolve the issue
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "no-wifi-troubleshooting-template",
@@ -189,6 +229,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "no-gps-troubleshooting-template",
     templateText: 
       `Symptom/Issue: No GPS
@@ -201,6 +250,15 @@ export const StandardTemplates = [
       • Any visible signs of damage to OBC (antenna)?
       • Swap antenna if able, if issue persists, swap OBC
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "installation-assistance-template",
@@ -221,6 +279,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "installation-howto-template",
     templateText: 
       ` Symptom/Issue: Installation assistance/ how to
@@ -229,6 +296,15 @@ export const StandardTemplates = [
       • Sent instructions on how to pair unit
       • Assisted with unit pairing and confirmed installation. Issue resolved
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "instinct-change-vid-template",
@@ -242,6 +318,15 @@ export const StandardTemplates = [
       • Checked Device Diagnostics and Cell, ECM, GPS and Wifi active.
       • Driver is able to log in and continue. Issue resolved
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "smd-trips-present-template",
@@ -261,6 +346,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "smd-failed-launch-troubleshooting-template",
     templateText: 
       `Symptom/Issue: SMD App is not opening normally
@@ -271,6 +365,15 @@ export const StandardTemplates = [
       'add user' button at log in. 
       • SMD app loading normally. Issue resolved
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "otap-template",
@@ -286,6 +389,15 @@ export const StandardTemplates = [
       OTAPs  
       • For OTAPs to more than 5 units, escalate to SOTA
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "unable-to-reach-host-template",
@@ -310,6 +422,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "dvr-pairing-troubleshooting-template",
     templateText: 
       `Symptom/Issue: DVR Unable to pair
@@ -328,6 +449,15 @@ export const StandardTemplates = [
       • Wait 10-15 minutes and try pairing again. If DVR still does not come up, log out of DVR toolkit and try againAdditional Notes:
       • Contact TSA or escalate if prior troubleshooting did not resolve the issue
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "drivewyze-activation-template",
@@ -354,6 +484,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "log-incorrect-time-template",
     templateText: 
       `Symptom/Issue: Driver states that log time is incorrect on
@@ -374,6 +513,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "log-edit-template",
     templateText: 
       `Symptom/Issue: Log Edit: Driver found a problem with log status times and needs to correct it
@@ -387,6 +535,15 @@ export const StandardTemplates = [
       Recommended Next Steps: 
       • If unsure about logs, shift time or HOS interpretation contact Safety for clarification.
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "log-auto-drive-edit-template",
@@ -404,6 +561,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "log-no-time-template",
     templateText: 
       `Symptom/Issue: No drive time after coming from break
@@ -419,6 +585,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "no-power-troubleshooting-template",
     templateText: 
       `Symptom/Issue: No Power To OBC
@@ -432,6 +607,15 @@ export const StandardTemplates = [
       damage to unit or cabling
       • LED is still not lit. Swap OBC
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "no-ecm-troubleshooting-template",
@@ -453,6 +637,15 @@ export const StandardTemplates = [
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "case-notes-email-template",
     templateText: 
       `Hello {{{Recipient.FirstName}}}, 
@@ -463,6 +656,15 @@ Please reply to this email with any problem you may have. If you would like to s
       `,
   },
   {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
+  },
+  {
     id: "blank-email-template",
     templateText: 
       `Hello {{{Recipient.FirstName}}},
@@ -471,6 +673,15 @@ Thank you for contacting Trimble Transportation Support. I have received your em
       
 Please reply to this email with any problem you may have. If you would like to speak with a representative you may contact 888-346-3486, select option 1, and reference case number {{{Case.CaseNumber}}}. To search for answers to your Trimble Transportation questions, please visit MyTransportation at https://crmtransportation.force.com/service.
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "csm-template",
@@ -484,6 +695,15 @@ Please reply to this email with any problem you may have. If you would like to s
       What is the problem or the issue? 
       What would the customer like the CM to accomplish? 
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "drivewyze-template",
@@ -503,6 +723,15 @@ Please reply to this email with any problem you may have. If you would like to s
       License plate state: 
       VIN(complete): 
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "tsa-template",
@@ -545,6 +774,15 @@ Please reply to this email with any problem you may have. If you would like to s
       De-Escalate, or Escalate to (Specific Person):
       Additional Notes: 
       `,
+  },
+  {
+    id: "",
+    label: "",
+    bodyTitle: `Symptom/Issue: `,
+    templateText: `
+    Solution/Troubleshooting:
+    `,
+    escalationText: ``,
   },
   {
     id: "e2-template",

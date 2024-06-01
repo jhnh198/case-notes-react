@@ -6,10 +6,10 @@ import { StandardTemplates } from '../data/standard-templates';
 
 export default function NoteBuilder() {
   const [notes, setNotes] = useState({
+    bodyTitle: "Solution/ Troubleshooting:",
     body: [],
-    bodyTitle: "Case Notes:",
-    head: "Header",
-    foot: "Footer",
+    head: "",
+    foot: "",
     additionalNotes: "Additional Notes:",
     additionalNotesBody: [],
   } as any);
@@ -50,7 +50,6 @@ export default function NoteBuilder() {
 
   const handleTemplateNotes = (value: string) => {
     const template = StandardTemplates.find((template: any) => template.id === value);
-    console.log(template);
     if (template) {
       setNotes({ ...notes, body: [template.templateText] });
     }
@@ -75,8 +74,7 @@ export default function NoteBuilder() {
             as="textarea"
             rows={5}
             onChange={handleChange}
-          />  
-
+          />
 
           <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
