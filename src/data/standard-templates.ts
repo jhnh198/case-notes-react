@@ -1,5 +1,5 @@
 /* 
-Sturcture of a template:
+Structure of a template:
 
 id: "",
 label: "",

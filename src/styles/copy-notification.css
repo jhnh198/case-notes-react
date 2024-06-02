@@ -1,0 +1,16 @@
+
+.hover-div{
+  visibility: hidden;
+width: 160px;
+background-color: #555;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 8px 0;
+position: absolute;
+z-index: 1;
+left: 52%;
+margin-left: -80px;
+top: 8%;
+
+}

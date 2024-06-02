@@ -3,6 +3,7 @@ import { InitialCheckboxData } from '../data/InitialCheckboxData'
 import { useState } from 'react'
 import { Button } from 'react-bootstrap';
 import { StandardTemplates } from '../data/standard-templates';
+import "../styles/copy-notification.css";
 
 export default function NoteBuilder() {
   const [notes, setNotes] = useState({
@@ -13,6 +14,9 @@ export default function NoteBuilder() {
     additionalNotes: "Additional Notes:",
     additionalNotesBody: [],
   } as any);
+
+  const [value, setValue] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
   const emailTemplateHeader = "Thank you for contacting Trimble Transportation. Please see below for case notes on your issue \n\n";
   const emailTemplateFooter = "Please reply to this email if you have any further questions or concerns. \n\n" + "Trimble Transportation";
@@ -46,6 +50,11 @@ export default function NoteBuilder() {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
+  
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 2000);
   };
 
   const handleTemplateNotes = (value: string) => {
@@ -60,11 +69,84 @@ export default function NoteBuilder() {
       <Form>
       <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>
+          
           <Button variant="primary m-4" onClick={copyToClipboard}>Copy</Button>
+
+          <div className="hover-div">
+          {showPopup && (
+            <div className="popup">
+              Copied to clipboard
+            </div>
+          )}
+          </div>
           <Form.Check >
             <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
             <Form.Check.Label>Email Template</Form.Check.Label>
           </Form.Check>
+
+          <Dropdown>
+        <Dropdown.Toggle className='my-3' variant="success" id="dropdown-basic">
+          Standard Templates
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+        <Form.Control 
+          autoFocus
+          placeholder="Search for a template"
+          aria-label="Search for a template"
+          aria-describedby="basic-addon2"
+          className="mx-3 my-2 w-auto"
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+        />
+
+        {StandardTemplates.filter((template: any) => template.label.toLowerCase().includes(value.toLowerCase())).map((template: any) => {
+          return (
+            <Dropdown.Item key={template.id} onClick={() => handleTemplateNotes(template.id)}>
+              {template.label}
+            </Dropdown.Item>
+          );
+        })}
+        </Dropdown.Menu>
+      </Dropdown>
+
+      <Accordion>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Contact Info</Accordion.Header>
+          <Accordion.Body>
+            <Form>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control type="text" placeholder="" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Company</Form.Label>
+                <Form.Control type="text" placeholder="" /> 
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Company ID</Form.Label>
+                <Form.Control type="text" placeholder="" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="text" placeholder="" /> 
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="text" placeholder="" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Case Number</Form.Label>
+                <Form.Control type="text" placeholder="" />
+                </Form.Group>
+            </Form>
+            </Accordion.Body>
+          </Accordion.Item>
+      </Accordion>
 
           {/*readonly for the time being. Changing the field directly does not update the */}
           <Form.Control
@@ -73,28 +155,19 @@ export default function NoteBuilder() {
             readOnly
             value={`${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`}
           />
-          <Form.Label className="mt-3">Additional Notes</Form.Label>
-          <Form.Control
-            value={notes.additionalNotesBody.join("\n")}
-            as="textarea"
-            rows={5}
-            onChange={handleAdditionalNotesChange}
-          />
-
-          <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Standard Templates
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {StandardTemplates.map((template: any) => {
-              return (
-                <Dropdown.Item key={template.id} onClick={() => handleTemplateNotes(template.id)}>
-                  {template.label}
-                </Dropdown.Item>
-              );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
+         <Accordion> 
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Additional Notes</Accordion.Header>
+            <Accordion.Body>
+              <Form.Control
+                value={notes.additionalNotes}
+                as="textarea"
+                rows={5}
+                onChange={(e) => setNotes({ ...notes, additionalNotes: e.target.value })}
+              />
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
 
       </Form.Group>
         <Accordion defaultActiveKey="0">
@@ -117,3 +190,6 @@ export default function NoteBuilder() {
     </>
   )
 }
+
+
+
