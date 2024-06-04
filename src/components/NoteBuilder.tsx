@@ -1,4 +1,4 @@
-import { Accordion, Dropdown, Form } from 'react-bootstrap'
+import { Accordion, Dropdown, Fade, Form } from 'react-bootstrap'
 import { InitialCheckboxData } from '../data/InitialCheckboxData'
 import { useState } from 'react'
 import { Button } from 'react-bootstrap';
@@ -54,7 +54,7 @@ export default function NoteBuilder() {
     setShowPopup(true);
     setTimeout(() => {
       setShowPopup(false);
-    }, 2000);
+    }, 1000);
   };
 
   const handleTemplateNotes = (value: string) => {
@@ -72,13 +72,11 @@ export default function NoteBuilder() {
           
           <Button variant="primary m-4" onClick={copyToClipboard}>Copy</Button>
 
-          <div className="hover-div">
-          {showPopup && (
+          <Fade in={showPopup}> 
             <div className="popup">
               Copied to clipboard
             </div>
-          )}
-          </div>
+          </Fade>
           <Form.Check >
             <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
             <Form.Check.Label>Email Template</Form.Check.Label>
@@ -190,6 +188,3 @@ export default function NoteBuilder() {
     </>
   )
 }
-
-
-
