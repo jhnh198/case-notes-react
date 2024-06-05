@@ -37,6 +37,42 @@ export default function NoteBuilder() {
     }
   }
 
+  const handleNotesTyped = (e: any) => {
+    const token = "$TOKEN$";
+
+    //turn notes into a single string separating each value with a token
+    let notesObject = Object.keys(notes).map((key) => [key, notes[key]]);
+
+    const notesString = notesObject.join(token);
+
+    //split the string into an array of notes
+    const notesArray = notesString.split(token);
+
+    //find the index of the note that was changed by comparing the notes array to the notes object
+    const index = notes.body.findIndex((note: string) => !notesArray.includes(note));
+
+    //compare the notes array indexes to the notes object keys
+    //and set the state of the notes object to the notes array
+    //this will allow the notes object to be updated with the new notes
+    //while keeping the same order of the notes
+
+    const existingLines = notes.body;
+    const newLines = e.target.value;
+    const updatedLines = existingLines.filter((line: string) => newLines.includes(line));
+    const mergedLines = [...updatedLines, ...newLines.filter((line: string) => !existingLines.includes(line))];
+    const updatedNotes = { ...notes, body: mergedLines };
+    setNotes(updatedNotes);
+  };
+
+
+    let fullNotesArray = Object.keys(notes).map((key) => [key, notes[key]]);
+
+    
+
+    setNotes({ ...notes, body: e.target.value.split("\n") });
+
+  };
+
   //todo: set an onchange event for the textarea to update the state of the additional notes body every few seconds
   function handleAdditionalNotesChange(e: any) {
     setNotes({ ...notes, additionalNotesBody: e.target.value.split("\n") });
