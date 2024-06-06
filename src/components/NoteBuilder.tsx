@@ -45,8 +45,8 @@ export default function NoteBuilder() {
 
     const notesString = notesObject.join(token);
 
-    //split the string into an array of notes
-    const notesArray = notesString.split(token);
+    //get text area value and split it into an array words
+    const newTextArray = e.target.value.split(" ");
 
     //find the index of the note that was changed by comparing the notes array to the notes object
     const index = notes.body.findIndex((note: string) => !notesArray.includes(note));
@@ -64,14 +64,6 @@ export default function NoteBuilder() {
     setNotes(updatedNotes);
   };
 
-
-    let fullNotesArray = Object.keys(notes).map((key) => [key, notes[key]]);
-
-    
-
-    setNotes({ ...notes, body: e.target.value.split("\n") });
-
-  };
 
   //todo: set an onchange event for the textarea to update the state of the additional notes body every few seconds
   function handleAdditionalNotesChange(e: any) {
