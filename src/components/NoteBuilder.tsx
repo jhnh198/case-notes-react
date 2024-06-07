@@ -38,30 +38,12 @@ export default function NoteBuilder() {
   }
 
   const handleNotesTyped = (e: any) => {
-    const token = "$TOKEN$";
-
-    //turn notes into a single string separating each value with a token
-    let notesObject = Object.keys(notes).map((key) => [key, notes[key]]);
-
-    const notesString = notesObject.join(token);
-
-    //get text area value and split it into an array words
-    const newTextArray = e.target.value.split(" ");
-
-    //find the index of the note that was changed by comparing the notes array to the notes object
-    const index = notes.body.findIndex((note: string) => !notesArray.includes(note));
-
-    //compare the notes array indexes to the notes object keys
-    //and set the state of the notes object to the notes array
-    //this will allow the notes object to be updated with the new notes
-    //while keeping the same order of the notes
-
-    const existingLines = notes.body;
-    const newLines = e.target.value;
-    const updatedLines = existingLines.filter((line: string) => newLines.includes(line));
-    const mergedLines = [...updatedLines, ...newLines.filter((line: string) => !existingLines.includes(line))];
-    const updatedNotes = { ...notes, body: mergedLines };
-    setNotes(updatedNotes);
+    let notesTextArea = document.getElementById('notesTextArea') as HTMLTextAreaElement;
+    let tempNotes = notesTextArea.value.split("\n");
+    let tempKey = '';
+    Object.keys(notes).forEach((key) => {
+      tempNotes.filter((note: any) => notes.includes(note));
+    });
   };
 
 
@@ -96,35 +78,35 @@ export default function NoteBuilder() {
     <>
       <Form>
       <Form.Group controlId="markdown">
-          <Form.Label>Body</Form.Label>
+        <Form.Label>Body</Form.Label>
           
-          <Button variant="primary m-4" onClick={copyToClipboard}>Copy</Button>
+        <Button variant="primary m-4" onClick={copyToClipboard}>Copy</Button>
 
-          <Fade in={showPopup}> 
-            <div className="popup">
-              Copied to clipboard
-            </div>
-          </Fade>
-          <Form.Check >
-            <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
-            <Form.Check.Label>Email Template</Form.Check.Label>
-          </Form.Check>
+        <Fade in={showPopup}> 
+          <div className="popup">
+            Copied to clipboard
+          </div>
+        </Fade>
+        <Form.Check >
+          <Form.Check.Input type="checkbox" onChange={handleEmailChange}></Form.Check.Input>
+          <Form.Check.Label>Email Template</Form.Check.Label>
+        </Form.Check>
 
-          <Dropdown>
-        <Dropdown.Toggle className='my-3' variant="success" id="dropdown-basic">
-          Standard Templates
-        </Dropdown.Toggle>
+        <Dropdown>
+          <Dropdown.Toggle className='my-3' variant="success" id="dropdown-basic">
+            Standard Templates
+          </Dropdown.Toggle>
 
-        <Dropdown.Menu>
-        <Form.Control 
-          autoFocus
-          placeholder="Search for a template"
-          aria-label="Search for a template"
-          aria-describedby="basic-addon2"
-          className="mx-3 my-2 w-auto"
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-        />
+          <Dropdown.Menu>
+            <Form.Control
+              autoFocus
+              placeholder="Search for a template"
+              aria-label="Search for a template"
+              aria-describedby="basic-addon2"
+              className="mx-3 my-2 w-auto"
+              onChange={(e) => setValue(e.target.value)}
+              value={value}
+            />
 
         {StandardTemplates.filter((template: any) => template.label.toLowerCase().includes(value.toLowerCase())).map((template: any) => {
           return (
@@ -132,7 +114,7 @@ export default function NoteBuilder() {
               {template.label}
             </Dropdown.Item>
           );
-        })}
+          })}
         </Dropdown.Menu>
       </Dropdown>
 
@@ -177,6 +159,7 @@ export default function NoteBuilder() {
           {/*readonly for the time being. Changing the field directly does not update the */}
           <Form.Control
             as="textarea"
+            id='notesTextArea'
             rows={15}
             readOnly
             value={`${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`}
