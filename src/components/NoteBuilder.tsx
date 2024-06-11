@@ -39,10 +39,20 @@ export default function NoteBuilder() {
 
   const handleNotesTyped = (e: any) => {
     let notesTextArea = document.getElementById('notesTextArea') as HTMLTextAreaElement;
-    let tempNotes = notesTextArea.value.split("\n");
+    let tempNotes = notesTextArea.value.split("\n"); 
     let tempKey = '';
     Object.keys(notes).forEach((key) => {
-      tempNotes.filter((note: any) => notes.includes(note));
+      tempNotes.filter((note: any) => { 
+        if(!notes[key].includes(note)){
+          tempKey = key;
+        }
+        else{
+          let index = tempNotes.indexOf(note);
+          tempNotes.splice(index, 1);
+        }
+      });
+      setNotes({ ...notes, [tempKey]: tempNotes });
+      notesTextArea.value = `${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`;
     });
   };
 
@@ -161,10 +171,10 @@ export default function NoteBuilder() {
             as="textarea"
             id='notesTextArea'
             rows={15}
-            readOnly
             value={`${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`}
+            onChange={handleNotesTyped}
           />
-         <Accordion> 
+{/*          <Accordion> 
           <Accordion.Item eventKey="0">
             <Accordion.Header>Additional Notes</Accordion.Header>
             <Accordion.Body>
@@ -176,7 +186,7 @@ export default function NoteBuilder() {
               />
             </Accordion.Body>
           </Accordion.Item>
-        </Accordion>
+        </Accordion> */}
 
       </Form.Group>
         <Accordion defaultActiveKey="0">
