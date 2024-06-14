@@ -41,23 +41,7 @@ export default function NoteBuilder() {
   //need to find a way to filter out the notes that are already in the state and update the state accordingly
 
   const handleNotesTyped = (e: any) => {
-    let notesTextArea = document.getElementById('notesTextArea') as HTMLTextAreaElement;
-    let tempNotes = notesTextArea.value.split("\n"); 
-    let tempKey = '';
-    Object.keys(notes).forEach((key) => {
-      tempNotes.filter((note: any) => { 
-        if(!notes[key].includes(value)){
-          tempKey = key;
-        }
-        else{
-          let index = tempNotes.indexOf(note);
-          //this is the issue. temp notes are belng spliced into a single character
-          tempNotes.splice(index, 1);
-        }
-      });
-      setNotes({ ...notes, [tempKey]: tempNotes });
-      notesTextArea.value = `${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`;
-    });
+    
   };
 
   //todo: set an onchange event for the textarea to update the state of the additional notes body every few seconds
