@@ -41,7 +41,7 @@ export default function NoteBuilder() {
   //need to find a way to filter out the notes that are already in the state and update the state accordingly
 
   const handleNotesTyped = (e: any) => {
-    
+    setNotes({ ...notes, body: e.target.value.split("\n") });
   };
 
   //todo: set an onchange event for the textarea to update the state of the additional notes body every few seconds
@@ -157,11 +157,11 @@ export default function NoteBuilder() {
           <Form.Control
             as="textarea"
             id='notesTextArea'
+            readOnly
             rows={15}
             value={`${notes.head}\n${notes.body.join('\n')}\n${notes.additionalNotes}\n${notes.additionalNotesBody.join('\n')}\n${notes.foot}`}
-            onChange={handleNotesTyped}
           />
-{/*          <Accordion> 
+        <Accordion> 
           <Accordion.Item eventKey="0">
             <Accordion.Header>Additional Notes</Accordion.Header>
             <Accordion.Body>
@@ -173,7 +173,7 @@ export default function NoteBuilder() {
               />
             </Accordion.Body>
           </Accordion.Item>
-        </Accordion> */}
+        </Accordion>
 
       </Form.Group>
         <Accordion defaultActiveKey="0">
